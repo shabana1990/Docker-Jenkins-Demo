@@ -78,7 +78,7 @@ pipeline {
       }
 
     }
-	  node("${params.BUILD_AGENT}") {
+	
     
     stage('Dangling Containers') {
       sh 'docker ps -q -f status=exited | xargs --no-run-if-empty docker rm'
@@ -91,10 +91,9 @@ pipeline {
     stage('Dangling Volumes') {
       sh 'docker volume ls -qf dangling=true | xargs -r docker volume rm'
     }
-}
-	  
+  
     
-    	stage('Run Docker Image in Lab') {
+    stage('Run Docker Image in Lab') {
 
       steps{
 
