@@ -81,15 +81,33 @@ pipeline {
 	
     
     stage('Dangling Containers') {
+	    steps
+	    {
+		    scripts
+		    {
       sh 'docker ps -q -f status=exited | xargs --no-run-if-empty docker rm'
+		    }
+	    }
     }
 
     stage('Dangling Images') {
+	    steps
+	    {
+		     scripts
+		    {
       sh 'docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi'
+	    }
+	    }
     }
     
     stage('Dangling Volumes') {
+	      steps
+	    {
+		     scripts
+		    {
       sh 'docker volume ls -qf dangling=true | xargs -r docker volume rm'
+			       }
+	    }
     }
   
     
